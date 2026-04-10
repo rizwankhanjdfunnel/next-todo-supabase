@@ -12,7 +12,7 @@ export default function Home() {
           <div className="bg-gradient-to-br from-indigo-500 to-purple-500 p-2 rounded-xl shadow-lg shadow-purple-500/20">
             <Music className="text-white" size={24} />
           </div>
-          <h1 className="text-xl font-bold tracking-wider text-white">Symphony</h1>
+          <h1 className="text-xl font-bold tracking-wider text-white"> Steinway</h1>
         </div>
 
         <nav className="flex flex-col gap-2 flex-1">
@@ -20,14 +20,14 @@ export default function Home() {
             <LayoutDashboard size={20} />
             Dashboard
           </a>
-          <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-foreground/60 hover:text-foreground transition-all">
+          {/* <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-white hover:text-foreground transition-all">
             <Music size={20} />
             My Instruments
           </a>
           <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-foreground/60 hover:text-foreground transition-all">
             <Settings size={20} />
             Settings
-          </a>
+          </a> */}
         </nav>
 
         <div className="flex items-center gap-4 px-4 py-3 rounded-xl bg-black/20 border border-white/5 mt-auto">
@@ -36,7 +36,6 @@ export default function Home() {
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-white">Rizwan Khan</span>
-            <span className="text-xs text-foreground/50">Pro Member</span>
           </div>
         </div>
       </aside>

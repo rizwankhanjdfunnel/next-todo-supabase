@@ -60,7 +60,7 @@ export default function InstrumentsList() {
       <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
          <div>
             <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-               <Music className="text-purple-400" size={26}/> 
+               <Music className="text-white" size={26}/> 
                My Instruments
             </h2>
             <p className="text-foreground/50 text-sm mt-1">Here is your complete collection.</p>
