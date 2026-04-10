@@ -1,6 +1,7 @@
 import TodoList from "@/components/todo-list";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { LayoutDashboard, Music, Settings, User } from "lucide-react";
+import ActivityLogs from "@/components/activity-logs";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
           <div className="bg-gradient-to-br from-indigo-500 to-purple-500 p-2 rounded-xl shadow-lg shadow-purple-500/20">
             <Music className="text-white" size={24} />
           </div>
-          <h1 className="text-xl font-bold tracking-wider text-white"> Steinway</h1>
+          <h1 className="text-xl font-bold tracking-wider text-white">Symphony</h1>
         </div>
 
         <nav className="flex flex-col gap-2 flex-1">
@@ -20,14 +21,14 @@ export default function Home() {
             <LayoutDashboard size={20} />
             Dashboard
           </a>
-          {/* <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-white hover:text-foreground transition-all">
+          <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-foreground/60 hover:text-foreground transition-all">
             <Music size={20} />
             My Instruments
           </a>
           <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-foreground/60 hover:text-foreground transition-all">
             <Settings size={20} />
             Settings
-          </a> */}
+          </a>
         </nav>
 
         <div className="flex items-center gap-4 px-4 py-3 rounded-xl bg-black/20 border border-white/5 mt-auto">
@@ -36,13 +37,13 @@ export default function Home() {
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-white">Rizwan Khan</span>
+            <span className="text-xs text-foreground/50">Pro Member</span>
           </div>
         </div>
       </aside>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-screen overflow-y-auto relative">
-        {/* Background Ambient Glows */}
         <div className="fixed top-[-20%] left-[20%] w-[50%] h-[50%] rounded-full bg-purple-600/10 blur-[150px] pointer-events-none" />
         <div className="fixed bottom-[-20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[150px] pointer-events-none" />
         
@@ -78,13 +79,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-purple-500/30 rounded-3xl p-6 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/30 blur-3xl transform group-hover:scale-150 transition-transform duration-700" />
-              <h3 className="text-purple-300 text-sm font-medium mb-3 relative z-10">Pro Tip</h3>
-              <p className="text-white font-medium text-lg relative z-10">
-                You can add any type of instrument. The UI updates instantly using Optimistic UI principles!
-              </p>
-            </div>
+            {/* NEW: Activity Logs Sidebar */}
+            <ActivityLogs />
           </div>
           
         </div>
