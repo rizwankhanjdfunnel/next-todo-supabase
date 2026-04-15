@@ -21,14 +21,7 @@ export default function Home() {
             <LayoutDashboard size={20} />
             Dashboard
           </a>
-          <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-foreground/60 hover:text-foreground transition-all">
-            <Music size={20} />
-            My Instruments
-          </a>
-          <a href="#" className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-foreground/60 hover:text-foreground transition-all">
-            <Settings size={20} />
-            Settings
-          </a>
+        
         </nav>
 
         <div className="flex items-center gap-4 px-4 py-3 rounded-xl bg-black/20 border border-white/5 mt-auto">
@@ -36,8 +29,7 @@ export default function Home() {
             <User size={18} className="text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold text-white">Rizwan Khan</span>
-            <span className="text-xs text-foreground/50">Pro Member</span>
+            <span className="text-sm font-semibold text-white">Admin User</span>
           </div>
         </div>
       </aside>
@@ -53,9 +45,9 @@ export default function Home() {
             <h2 className="text-3xl font-extrabold text-white tracking-tight">Welcome back! 👋</h2>
             <p className="text-foreground/50 mt-1">Manage your music instruments and inventory.</p>
           </div>
-          <div className="flex items-center gap-4">
+          {/* <div className="flex items-center gap-4">
              <ThemeSwitcher />
-          </div>
+          </div> */}
         </header>
 
         {/* Dashboard Grid */}
@@ -69,12 +61,12 @@ export default function Home() {
           {/* Stats / Overview Section */}
           <div className="w-full xl:w-96 flex flex-col gap-6">
             <div className="bg-white/5 border border-white/5 rounded-3xl p-6 backdrop-blur-lg">
-              <h3 className="text-foreground/60 text-sm font-medium mb-4 uppercase tracking-widest">Inventory Status</h3>
+              <h3 className="text-white text-sm font-medium mb-4 uppercase tracking-widest">Inventory Status</h3>
               <div className="flex items-end gap-3 mb-2">
                 <span className="text-5xl font-black text-white">100%</span>
                 <span className="text-green-500 text-sm font-bold pb-2">+12% this week</span>
               </div>
-              <p className="text-foreground/40 text-sm leading-relaxed">
+              <p className="text-white text-sm leading-relaxed">
                 All your instruments are fully synced with the Supabase database. Real-time operations are active.
               </p>
             </div>

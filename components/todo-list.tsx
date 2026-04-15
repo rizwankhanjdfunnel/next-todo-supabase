@@ -19,14 +19,18 @@ export default function InstrumentsList() {
   useEffect(() => {
     fetchInstruments();
     
-    // Subscribe to DB changes to keep list in sync automatically
-    const channel = supabase.channel('schema-db-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'instruments' }, () => {
+    const channel = supabase.channel('instruments-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'instruments' }, (payload) => {
+         console.log('RT Change in Instruments:', payload);
          fetchInstruments();
       })
-      .subscribe();
+      .subscribe((status) => {
+        console.log('Real-time Status (Instruments):', status);
+      });
       
-    return () => { supabase.removeChannel(channel) };
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchInstruments = async () => {
@@ -38,9 +42,21 @@ export default function InstrumentsList() {
     e.preventDefault();
     if (!newName.trim()) return;
     
-    const { data } = await supabase.from("instruments").insert([{ name: newName }]);
+    // -- OPTIMISTIC UPDATE --
+    const optimisticId = Date.now();
+    const optimisticItem = { id: optimisticId, name: newName };
+    setInstruments((prev) => [optimisticItem, ...prev]);
     setNewName("");
-    // We let realtime trigger the fetch update so UI stays synced with Server state
+    
+    const { data, error } = await supabase.from("instruments").insert([{ name: optimisticItem.name }]).select();
+    
+    if (error) {
+      console.error("Error adding instrument:", error);
+      fetchInstruments(); // Revert on error
+    } else if (data && data[0]) {
+      // Replace optimistic item with real one from DB
+      setInstruments((prev) => prev.map(item => item.id === optimisticId ? data[0] : item));
+    }
   };
 
   const startEdit = (instrument: Instrument) => {
@@ -50,12 +66,29 @@ export default function InstrumentsList() {
 
   const saveEdit = async () => {
     if (!editName.trim() || !editingId) return setEditingId(null);
-    await supabase.from("instruments").update({ name: editName }).match({ id: editingId });
+    
+    // -- OPTIMISTIC UPDATE --
+    setInstruments((prev) => prev.map(i => i.id === editingId ? { ...i, name: editName } : i));
     setEditingId(null);
+
+    const { error } = await supabase.from("instruments").update({ name: editName }).match({ id: editingId });
+    
+    if (error) {
+      console.error("Error updating instrument:", error);
+      fetchInstruments(); // Revert on error
+    }
   };
 
   const deleteInstrument = async (id: number) => {
-    await supabase.from("instruments").delete().match({ id });
+    // -- OPTIMISTIC UPDATE --
+    setInstruments((prev) => prev.filter(item => item.id !== id));
+    
+    const { error } = await supabase.from("instruments").delete().match({ id });
+    
+    if (error) {
+       console.error("Error deleting instrument:", error);
+       fetchInstruments(); // Revert on error
+    }
   };
 
   return (
@@ -68,7 +101,7 @@ export default function InstrumentsList() {
                <Music className="text-purple-400" size={26}/> 
                My Instruments
             </h2>
-            <p className="text-foreground/50 text-sm mt-1">Manage and edit your collection.</p>
+            <p className="text-white text-sm mt-1">Manage and edit your collection.</p>
          </div>
       </div>
       
